@@ -12,12 +12,15 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.1/install.sh | b
 # Close and reopen the terminal.
 # Kind of switched to npm and ran a bunch of commands
 # ended up with node version v8.17.0
+nvm install v12.18.1 # used this to actually update node
 ```
 
 Following the Symfony docs
 ```
+composer require symfony/webpack-encore-bundle # must be first !!!
 yarn add bootstrap --dev
 yarn add jquery popper.js --dev
-composer require symfony/webpack-encore-bundle
 yarn install # seemed to work okay
+yarn encore dev --watch
+yarn encore production
 ```
