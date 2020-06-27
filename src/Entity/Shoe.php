@@ -17,6 +17,15 @@ class Shoe
         $this->name = $name;
         $this->color = $color;
     }
+    public function getCodeColor() : ?string
+    {
+        $code = $this->code;
+        if (strlen($code) !== 9) {
+            return $code;
+        }
+        return substr($code,0,6) . ' ' . substr($code,-3);
+    }
+    /* ******** Auto generated nonsense ******** */
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

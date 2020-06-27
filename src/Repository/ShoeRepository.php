@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Shoe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,7 +19,18 @@ class ShoeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Shoe::class);
     }
-
+    public function persist(Shoe $shoe) : void
+    {
+        $this->_em->persist($shoe);
+    }
+    public function flush() : void
+    {
+        $this->_em->flush();
+    }
+    public function getEntityManager() : EntityManagerInterface
+    {
+        return $this->_em;
+    }
     // /**
     //  * @return Shoe[] Returns an array of Shoe objects
     //  */
@@ -36,15 +48,13 @@ class ShoeRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Shoe
+    public function findOneByCode(string $code): ?Shoe
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('shoe')
+            ->andWhere('shoe.code = :code')
+            ->setParameter(':code', $code)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }
