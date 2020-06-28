@@ -46,18 +46,24 @@ final class ShoeLoadCommand extends Command
         }
         return $shoe;
     }
+    private function persistShoe(Shoe $shoe) : void
+    {
+        $this->shoeRepository->getEntityManager()->persist($shoe);
+        $this->shoeCodes[$shoe->getCode()] = $shoe;
+    }
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
-        // Empty tables
-        $conn = $this->shoeRepository->getEntityManager()->getConnection();
-        $conn->beginTransaction();
-        $conn->executeUpdate('TRUNCATE shoes;');
-        $conn->commit();
+        // Empty tables - does not work once foriegn constrants are applied
+        //$conn = $this->shoeRepository->getEntityManager()->getConnection();
+        //$conn->beginTransaction();
+        //$conn->executeUpdate('TRUNCATE shoe_stores;');
+        //$conn->executeUpdate('TRUNCATE shoes;');
+        //$conn->commit();
 
         // Master list
         $inputFileName = '//home/ahundiak/Downloads/shoes/NikeShoes20200627a.xlsx';
         $ss = IOFactory::load($inputFileName);
-        $this->updateShoe = true; // Don't really need this as long as starting from stratch
+        //$this->updateShoe = true; // Don't really need this as long as starting from stratch
         $this->processSheet($ss,'Code');
         $this->updateShoe = false;
 
@@ -131,7 +137,8 @@ final class ShoeLoadCommand extends Command
         $shoe = $this->findShoe($code);
         if ($shoe === null) {
             $shoe = new Shoe($code,$name,$color);
-            $this->shoeRepository->getEntityManager()->persist($shoe);
+            $this->persistShoe($shoe);
+            return;
         }
         if ($this->updateShoe) {
             $shoe->setName($name);

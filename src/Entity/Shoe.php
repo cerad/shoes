@@ -17,7 +17,7 @@ class Shoe
         $this->name = $name;
         $this->color = $color;
     }
-    public function getCodeColor() : ?string
+    public function getCodeColor() : string
     {
         $code = $this->code;
         if (strlen($code) !== 9) {
@@ -34,7 +34,7 @@ class Shoe
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, unique=true)
      */
     private $code;
 
@@ -44,9 +44,9 @@ class Shoe
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=40, nullable=true)
+     * @ORM\Column(type="string", length=40)
      */
-    private $color;
+    private $color = '';
 
     /**
      * @ORM\Column(type="string", length=40, nullable=true)
@@ -63,7 +63,7 @@ class Shoe
         return $this->id;
     }
 
-    public function getCode(): ?string
+    public function getCode(): string
     {
         return $this->code;
     }
@@ -75,7 +75,7 @@ class Shoe
         return $this;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -87,12 +87,12 @@ class Shoe
         return $this;
     }
 
-    public function getColor(): ?string
+    public function getColor(): string
     {
         return $this->color;
     }
 
-    public function setColor(?string $color): self
+    public function setColor(string $color): self
     {
         $this->color = $color;
 
