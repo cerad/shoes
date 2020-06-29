@@ -25,6 +25,8 @@ class ShoeStoreDumpCommand extends Command
 
     private ShoeStoreRepository $shoeStoreRepository;
 
+    private array $storeCodes = ['CELB', 'WG', 'INT', 'VINE'];
+
     public function __construct(ShoeStoreRepository $shoeStoreRepository)
     {
         parent::__construct();
@@ -38,10 +40,14 @@ class ShoeStoreDumpCommand extends Command
         // Set document properties
         $ss->getProperties()
             ->setCreator('Art')
-            ->setTitle('Nike Shoes');
+            ->setTitle('Nike Shoe Stores');
 
         $shoeStores = $this->shoeStoreRepository->findAllSortedByShoe();
         $this->writeSummarySheet($ss,'Summary',$shoeStores);
+
+        foreach($this->storeCodes as $storeCode) {
+            $this->writeStoreSheet($ss,$storeCode);
+        }
 
         $ss->setActiveSheetIndex(0);
         $ss->removeSheetByIndex(0);
@@ -50,9 +56,54 @@ class ShoeStoreDumpCommand extends Command
 
         return Command::SUCCESS;
     }
-    protected function writeSummarySheet(Spreadsheet $ss, string $sheetName, array $shoeStores) : void
+    public function writeStoreSheet(Spreadsheet $ss, string $storeCode) : void
     {
-        $row = new ShoeStoreSummaryRow();
+        // New Sheet
+        $ws = new Worksheet();
+        $ws->setTitle($storeCode);
+        $ss->addSheet($ws);
+
+        // Headers
+        $ws->setCellValue('A1','Product Code');
+        $ws->setCellValue('B1','Shoe Name');
+        $ws->setCellValue('C1','Color');
+        $ws->setCellValue('D1','Price');
+
+        // Column width
+        $ws->getColumnDimension('A')->setWidth(12);
+        $ws->getColumnDimension('B')->setWidth(36);
+        $ws->getColumnDimension('C')->setWidth(40);
+        $ws->getColumnDimension('D')->setWidth(10);
+
+        // Format and justification
+        foreach(['A:A','B:B','C:C'] as $range) {
+            $style = $ws->getStyle($range);
+            $style->getNumberFormat()->setBuiltInFormatCode(NumberFormat::FORMAT_TEXT);
+            $style->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
+        }
+        $style = $ws->getStyle('D:D');
+        $style->getNumberFormat()->setBuiltInFormatCode(NumberFormat::FORMAT_CURRENCY_USD);
+        $style->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+
+        $shoeStores = $this->shoeStoreRepository->findAllForStore($storeCode);
+
+        $rowNumber = 2;
+
+        foreach($shoeStores as $shoeStore) {
+                $this->writeStoreRow($ws,$shoeStore,$rowNumber++);
+        }
+    }
+    private function writeStoreRow(Worksheet $ws, ShoeStore $shoeStore, int $rowNumber)
+    {
+        $shoe = $shoeStore->getShoe();
+        $ws->setCellValue('A' . $rowNumber, $shoe->getCodeColor());
+        $ws->setCellValue('B' . $rowNumber, $shoe->getName());
+        $ws->setCellValue('C' . $rowNumber, $shoe->getColor());
+        $ws->setCellValue('D' . $rowNumber, $shoeStore->getPriceCurrency());
+    }
+    public function writeSummarySheet(Spreadsheet $ss, string $sheetName, array $shoeStores) : void
+    {
+        $row = new ShoeStoreSummaryRow($this->storeCodes);
 
         $ws = new Worksheet();
         $ws->setTitle($sheetName);
@@ -64,7 +115,7 @@ class ShoeStoreDumpCommand extends Command
         $ws->setCellValue('C1','Color');
 
         $storeCodeLetter = 'D';
-        foreach($row->storeCodes as $storeCode) {
+        foreach($this->storeCodes as $storeCode) {
             $ws->setCellValue($storeCodeLetter . '1',$storeCode);
             $storeCodeLetter++;
         }
@@ -75,7 +126,7 @@ class ShoeStoreDumpCommand extends Command
         $ws->getColumnDimension('C')->setWidth(40);
 
         $storeCodeLetter = 'D';
-        foreach($row->storeCodes as $storeCode) {
+        foreach($this->storeCodes as $storeCode) {
             $ws->getColumnDimension($storeCodeLetter)->setWidth(10);
             $storeCodeLetter++;
         }
@@ -87,7 +138,7 @@ class ShoeStoreDumpCommand extends Command
             $style->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
         }
         $storeCodeLetter = 'D';
-        foreach($row->storeCodes as $storeCode) {
+        foreach($this->storeCodes as $storeCode) {
             $style = $ws->getStyle($storeCodeLetter . ':' . $storeCodeLetter);
             $style->getNumberFormat()->setBuiltInFormatCode(NumberFormat::FORMAT_CURRENCY_USD);
             $style->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
@@ -112,8 +163,8 @@ class ShoeStoreDumpCommand extends Command
         $ws->setCellValue('B' . $rowNumber, $row->shoeName);
         $ws->setCellValue('C' . $rowNumber, $row->shoeColor);
         $priceLetter = 'D';
-        foreach($row->storeCodes as $storeCode) {
-            $price = $row->getPrice($storeCode);
+        foreach($this->storeCodes as $storeCode) {
+            $price = $row->getPriceForStore($storeCode);
             $ws->setCellValue($priceLetter . $rowNumber, $price);
             $priceLetter++;
         }

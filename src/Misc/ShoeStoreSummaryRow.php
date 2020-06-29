@@ -9,9 +9,14 @@ class ShoeStoreSummaryRow
     public string $shoeCode = '';
     public string $shoeName;
     public string $shoeColor;
-    public array  $prices;
-    public array  $storeCodes = ['CELB', 'WG', 'INT', 'VINE'];
 
+    private array  $prices;
+    private array  $storeCodes;
+
+    public function __construct(array $storeCodes)
+    {
+        $this->storeCodes = $storeCodes;
+    }
     public function setShoeStore(ShoeStore $shoeStore) : void
     {
         $shoe = $shoeStore->getShoe();
@@ -21,13 +26,13 @@ class ShoeStoreSummaryRow
 
         $this->prices = [];
         foreach($this->storeCodes as $storeCode) {
-            $this->prices[$storeCode] = '';
+            $this->prices[$storeCode] = null;
         }
-        $this->prices[$shoeStore->getStore()] = $shoeStore->getPrice();
+        $this->prices[$shoeStore->getStore()] = $shoeStore->getPriceCurrency();
     }
     public function addShoeStore(ShoeStore $shoeStore) : void
     {
-        $this->prices[$shoeStore->getStore()] = $shoeStore->getPrice();
+        $this->prices[$shoeStore->getStore()] = $shoeStore->getPriceCurrency();
     }
     public function hasShoeChanged(ShoeStore $shoeStore) : bool
     {
@@ -42,9 +47,7 @@ class ShoeStoreSummaryRow
         }
         return true;
     }
-    public function getPrice(string $storeCode) : ?float {
-        $price = $this->prices[$storeCode];
-        if ($price < 1) return null;
-        return (float)$price / 100.00;
+    public function getPriceForStore(string $storeCode) : ?float {
+        return $this->prices[$storeCode];
     }
 }

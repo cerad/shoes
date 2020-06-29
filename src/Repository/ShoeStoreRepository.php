@@ -37,7 +37,7 @@ class ShoeStoreRepository extends ServiceEntityRepository
     }
     /**
      * @return ShoeStore[] Returns an array of ShoeStore objects
-    */
+     */
     public function findAllSortedByShoe()
     {
         return $this->createQueryBuilder('shoeStore')
@@ -47,6 +47,20 @@ class ShoeStoreRepository extends ServiceEntityRepository
             //->setMaxResults(10)
             ->getQuery()
             ->getResult()
-        ;
+            ;
+    }
+    /**
+     * @return ShoeStore[] Returns an array of ShoeStore objects
+     */
+    public function findAllForStore(string $storeCode)
+    {
+        return $this->createQueryBuilder('shoeStore')
+            ->leftJoin('shoeStore.shoe','shoe')
+            ->andWhere('shoeStore.store = :storeCode')
+            ->setParameter('storeCode', $storeCode)
+            ->addOrderBy('shoe.code', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }

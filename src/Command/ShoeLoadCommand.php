@@ -61,13 +61,13 @@ final class ShoeLoadCommand extends Command
         //$conn->commit();
 
         // Master list
-        $inputFileName = '//home/ahundiak/Downloads/shoes/NikeShoes20200627a.xlsx';
+        $inputFileName = '//home/ahundiak/Downloads/shoes/NikeShoes20200629a.xlsx';
         $ss = IOFactory::load($inputFileName);
-        //$this->updateShoe = true; // Don't really need this as long as starting from stratch
+        $this->updateShoe = true; // Don't really need this as long as starting from stratch
         $this->processSheet($ss,'Code');
         $this->updateShoe = false;
 
-        //if (true) return Command::SUCCESS;
+        if (true) return Command::SUCCESS;
 
         // Individual shoe store entries
         $inputFileName = '//home/ahundiak/Downloads/shoes/NikeShoeStores20200627a.xlsx';
@@ -143,6 +143,9 @@ final class ShoeLoadCommand extends Command
         if ($this->updateShoe) {
             $shoe->setName($name);
             $shoe->setColor($color);
+        }
+        if ($code === 'AT9979002') {
+            //echo "{$code} {$name} {$color}\n";
         }
         //echo "{$code} {$name} {$color}\n"; die();
     }

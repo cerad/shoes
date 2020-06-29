@@ -17,6 +17,12 @@ class ShoeStore
         $this->store = $store;
         $this->price = $price;
     }
+    public function getPriceCurrency() : ?float
+    {
+        $price = $this->price;
+        if ($price < 1) return null;
+        return (float)$price / 100.00;
+    }
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
