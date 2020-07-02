@@ -61,7 +61,7 @@ final class ShoeLoadCommand extends Command
         //$conn->commit();
 
         // Master list
-        $inputFileName = '//home/ahundiak/Downloads/shoes/NikeShoes20200629a.xlsx';
+        $inputFileName = '//home/ahundiak/Downloads/shoes/NikeShoes20200630a.xlsx';
         $ss = IOFactory::load($inputFileName);
         $this->updateShoe = true; // Don't really need this as long as starting from stratch
         $this->processSheet($ss,'Code');

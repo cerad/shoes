@@ -25,7 +25,8 @@ class ShoeStoreDumpCommand extends Command
 
     private ShoeStoreRepository $shoeStoreRepository;
 
-    private array $storeCodes = ['CELB', 'WG', 'INT', 'VINE'];
+    //private array $storeCodes = ['CELB', 'WG', 'INT', 'VINE'];
+    private array $storeCodes = ['VINE0629', 'LBV0629', 'WG0629'];
 
     public function __construct(ShoeStoreRepository $shoeStoreRepository)
     {
@@ -42,7 +43,7 @@ class ShoeStoreDumpCommand extends Command
             ->setCreator('Art')
             ->setTitle('Nike Shoe Stores');
 
-        $shoeStores = $this->shoeStoreRepository->findAllSortedByShoe();
+        $shoeStores = $this->shoeStoreRepository->findAllForStoreCodes($this->storeCodes);
         $this->writeSummarySheet($ss,'Summary',$shoeStores);
 
         foreach($this->storeCodes as $storeCode) {

@@ -38,17 +38,33 @@ class ShoeStoreRepository extends ServiceEntityRepository
     /**
      * @return ShoeStore[] Returns an array of ShoeStore objects
      */
-    public function findAllSortedByShoe()
+    public function findAllForStoreCodes(array $storeCodes = [])
+    {
+        $qb = $this->createQueryBuilder('shoeStore');
+        $qb->leftJoin('shoeStore.shoe','shoe');
+        if (count($storeCodes)) {
+            $qb->andWhere('shoeStore.store IN (:storeCodes)');
+            $qb->setParameter('storeCodes',$storeCodes);
+        }
+        $qb->addOrderBy('shoe.code', 'ASC');
+        $qb->addOrderBy('shoeStore.store', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+    /**
+     * @return ShoeStore[] Returns an array of ShoeStore objects
+     */
+    public function findAllSortedByStore()
     {
         return $this->createQueryBuilder('shoeStore')
             ->leftJoin('shoeStore.shoe','shoe')
-            ->addOrderBy('shoe.code', 'ASC')
             ->addOrderBy('shoeStore.store', 'ASC')
-            //->setMaxResults(10)
+            ->addOrderBy('shoe.code', 'ASC')
             ->getQuery()
             ->getResult()
             ;
     }
+
     /**
      * @return ShoeStore[] Returns an array of ShoeStore objects
      */
@@ -62,5 +78,18 @@ class ShoeStoreRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
             ;
+    }
+    public function findAllStoreCodes() : array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare('SELECT DISTINCT store FROM shoe_stores ORDER BY store');
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        $storeCodes = [];
+        foreach ($rows as $row) {
+            $storeCode = $row['store'];
+            $storeCodes[$storeCode] = $storeCode;
+        }
+        return $storeCodes;
     }
 }

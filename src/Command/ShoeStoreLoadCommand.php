@@ -69,16 +69,25 @@ final class ShoeStoreLoadCommand extends Command
     }
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
-        $this->truncateShoeStores();
+        //$this->truncateShoeStores();
 
         // Individual shoe store entries
-        $inputFileName = '//home/ahundiak/Downloads/shoes/NikeShoeStores20200627a.xlsx';
+        $inputFileName = '//home/ahundiak/Downloads/shoes/NikeShoeStores20200630a.xlsx';
         $ss = IOFactory::load($inputFileName);
 
-        $this->processSheet($ss,'Celb', 'CELB');
-        $this->processSheet($ss,'WG', 'WG');
-        $this->processSheet($ss,'INT', 'INT');
-        $this->processSheet($ss,'Vine', 'VINE');
+        //dd($ss->getSheetNames());
+        $stores = [
+            'VINE0629' => 'VINE0629',
+            'LBV0629'  => 'LBV0629',
+            'WG0629'   => 'WG0629'
+        ];
+        foreach($stores as $sheetName => $storeCode) {
+            $this->processSheet($ss,$sheetName, $storeCode);
+        }
+        ///$this->processSheet($ss,'Celb', 'CELB');
+        ///$this->processSheet($ss,'WG', 'WG');
+        ///$this->processSheet($ss,'INT', 'INT');
+        ///$this->processSheet($ss,'Vine', 'VINE');
 
         //$this->processSheet($ss,'INT97');
         //$this->processSheet($ss,'Vine97');
