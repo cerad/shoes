@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Shoe;
 use App\Repository\ShoeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 
 class ShoeController extends AbstractController
 {
@@ -15,10 +14,6 @@ class ShoeController extends AbstractController
     {
         $this->shoeRepository = $shoeRepository;
     }
-
-    /**
-     * @Route("/shoe/list", name="shoe_list")
-     */
     public function list()
     {
         $shoes = $this->shoeRepository->findAll();
@@ -27,14 +22,22 @@ class ShoeController extends AbstractController
             'shoes' => $shoes,
         ]);
     }
-    /**
-     * @Route("/shoe/show/{id}", name="shoe_show")
-     */
     public function show(Shoe $shoe)
     {
         dump($shoe);
 
         $shoes = $this->shoeRepository->findAll();
+
+        return $this->render('shoe/shoe_list.html.twig', [
+            'shoes' => $shoes,
+        ]);
+    }
+    public function edit(string $shoeCode)
+    {
+        dump($shoeCode);
+
+        //$shoes = $this->shoeRepository->findAll();
+        $shoes = [];
 
         return $this->render('shoe/shoe_list.html.twig', [
             'shoes' => $shoes,

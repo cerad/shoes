@@ -8,7 +8,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 
 class ShoeStoreController extends AbstractController
 {
@@ -17,10 +16,7 @@ class ShoeStoreController extends AbstractController
     {
         $this->shoeStoryRepository = $shoeStoreRepository;
     }
-    /**
-     * @Route("/shoe-store/list/{storeCode}", name="shoe-store_list")
-     */
-    public function list(Request $request, $storeCode = 'ALL')
+    public function list(Request $request, $storeCode)
     {
         $storeCode = strtoupper($storeCode);
 

@@ -26,6 +26,7 @@ class ShoeStoreRepository extends ServiceEntityRepository
     public function findOneByShoeCodeStoreCode(string $shoeCode, string $storeCode): ?ShoeStore
     {
         return $this->createQueryBuilder('shoeStore')
+            ->addSelect('shoe')
             ->leftJoin('shoeStore.shoe','shoe')
             ->andWhere('shoeStore.store = :storeCode')
             ->andWhere('shoe.code = :shoeCode')
@@ -41,6 +42,7 @@ class ShoeStoreRepository extends ServiceEntityRepository
     public function findAllForStoreCodes(array $storeCodes = [])
     {
         $qb = $this->createQueryBuilder('shoeStore');
+        $qb->addSelect('shoe');
         $qb->leftJoin('shoeStore.shoe','shoe');
         if (count($storeCodes)) {
             $qb->andWhere('shoeStore.store IN (:storeCodes)');
@@ -57,6 +59,7 @@ class ShoeStoreRepository extends ServiceEntityRepository
     public function findAllSortedByStore()
     {
         return $this->createQueryBuilder('shoeStore')
+            ->addSelect('shoe')
             ->leftJoin('shoeStore.shoe','shoe')
             ->addOrderBy('shoeStore.store', 'ASC')
             ->addOrderBy('shoe.code', 'ASC')
@@ -71,6 +74,7 @@ class ShoeStoreRepository extends ServiceEntityRepository
     public function findAllForStore(string $storeCode)
     {
         return $this->createQueryBuilder('shoeStore')
+            ->addSelect('shoe')
             ->leftJoin('shoeStore.shoe','shoe')
             ->andWhere('shoeStore.store = :storeCode')
             ->setParameter('storeCode', $storeCode)

@@ -1,0 +1,16 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+shoe_list:
+  path: /shoe/list
+  controller: App\Controller\ShoeController::list
+
+shoe_show:
+  path: /shoe/show/{code}
+  controller: App\Controller\ShoeController::show
+
+shoe-store_list:
+  path: /shoe-store/list/{storeCode}
+  controller: App\Controller\ShoeStoreController::list
+  defaults:
+    storeCode: 'ALL'
