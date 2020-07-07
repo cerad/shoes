@@ -10,12 +10,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 trait FormTrait
 {
-    private ?FormFactoryInterface $formFactory = null;
+    private FormFactoryInterface $formFactory;
 
     /** @required */
     public function setFormFactory(FormFactoryInterface $formFactory)
     {
-        $this->formFactory = $this->formFactory ?: $formFactory;
+        $this->formFactory = isset($this->formFactory) ? $this->formFactory: $formFactory;
     }
     protected function createForm(string $type, $data = null, array $options = []): FormInterface
     {

@@ -8,12 +8,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 trait RouterTrait
 {
-    private ?RouterInterface $router = null;
+    private RouterInterface $router;
 
     /** @required */
     public function setRouter(RouterInterface $router)
     {
-        $this->router = $this->router ?: $router;
+        $this->router = isset($this->router) ? $this->router: $router;
     }
     protected function generateUrl(
         string $route,

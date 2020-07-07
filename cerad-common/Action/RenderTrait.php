@@ -7,12 +7,12 @@ use Twig\Environment;
 
 trait RenderTrait
 {
-    private ?Environment $twig = null;
+    private Environment $twig;
 
     /** @required */
     public function setTwig(Environment $twig)
     {
-        $this->twig = $this->twig ?: $twig;
+        $this->twig = isset($this->twig) ? $this->twig: $twig;
     }
     protected function renderView(string $view, array $parameters = []): string
     {
