@@ -2,9 +2,11 @@
 
 namespace App\Shoe\Table;
 
-use App\Repository\ShoeRepository;
+use App\Shoe\ShoeRepository;
+
 use Cerad\Common\Action\ActionInterface;
 use Cerad\Common\Action\RenderTrait;
+
 use Symfony\Component\HttpFoundation\Response;
 
 final class ShoeListAction implements ActionInterface

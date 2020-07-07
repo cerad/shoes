@@ -2,11 +2,13 @@
 
 namespace App\ShoeStore\Table;
 
-use App\Repository\ShoeStoreRepository;
+use App\ShoeStore\ShoeStoreRepository;
+
 use Cerad\Common\Action\ActionInterface;
 use Cerad\Common\Action\FormFactoryTrait;
 use Cerad\Common\Action\RenderTrait;
 use Cerad\Common\Action\RouterTrait;
+
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;

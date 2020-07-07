@@ -2,16 +2,18 @@
 
 namespace App\Command;
 
-use App\Entity\Shoe;
-use App\Entity\ShoeStore;
-use App\Misc\ShoeStoreSummaryRow;
-use App\Repository\ShoeRepository;
-use App\Repository\ShoeStoreRepository;
+use App\Shoe\Shoe;
+use App\Shoe\ShoeRepository;
+use App\ShoeStore\ShoeStore;
+use App\ShoeStore\ShoeStoreRepository;
+use App\ShoeStore\ShoeStoreSummaryRow;
+
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

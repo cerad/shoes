@@ -2,8 +2,9 @@
 
 namespace App\Command;
 
-use App\Entity\Shoe;
-use App\Repository\ShoeRepository;
+use App\Shoe\Shoe;
+use App\Shoe\ShoeRepository;
+
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Symfony\Component\Console\Command\Command;

@@ -2,12 +2,14 @@
 
 namespace App\Command;
 
-use App\Entity\Shoe;
-use App\Entity\ShoeStore;
-use App\Repository\ShoeRepository;
-use App\Repository\ShoeStoreRepository;
+use App\Shoe\Shoe;
+use App\Shoe\ShoeRepository;
+use App\ShoeStore\ShoeStore;
+use App\ShoeStore\ShoeStoreRepository;
+
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

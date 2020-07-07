@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Misc;
+namespace App\ShoeStore;
 
-use App\Entity\ShoeStore;
+use App\ShoeStore\ShoeStore;
 
 class ShoeStoreSummaryRow
 {

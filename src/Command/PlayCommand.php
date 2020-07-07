@@ -13,7 +13,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class PlayCommand extends Command
 {
-    protected static $defaultName = 'app:play';
+    protected static $defaultName = 'app:playx';
 
     private RouterInterface $router;
     private RouteCollection $routeCollection;
