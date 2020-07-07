@@ -4,7 +4,7 @@ namespace App\ShoeStore\Table;
 
 use App\Repository\ShoeStoreRepository;
 use Cerad\Common\Action\ActionInterface;
-use Cerad\Common\Action\FormTrait;
+use Cerad\Common\Action\FormFactoryTrait;
 use Cerad\Common\Action\RenderTrait;
 use Cerad\Common\Action\RouterTrait;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ShoeStoreListAction implements ActionInterface
 {
-    use FormTrait;
+    use FormFactoryTrait;
     use RenderTrait;
     use RouterTrait;
 

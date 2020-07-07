@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-trait FormTrait
+trait FormFactoryTrait
 {
     private FormFactoryInterface $formFactory;
 
