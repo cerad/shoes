@@ -2,7 +2,7 @@
 
 namespace App\ShoeStore;
 
-use App\DoctrineMapper;
+use App\Common\DoctrineMapper;
 use App\Shoe\Shoe;
 use Doctrine\ORM\Mapping\Builder\FieldBuilder;
 

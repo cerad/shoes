@@ -2,7 +2,7 @@
 
 namespace App\Shoe;
 
-use App\DoctrineMapper;
+use App\Common\DoctrineMapper;
 //use Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder;
 use Doctrine\ORM\Mapping\Builder\FieldBuilder;
 //use Doctrine\ORM\Mapping\ClassMetadata;

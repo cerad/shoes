@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\ShoeStore\Command;
 
 use App\Shoe\Shoe;
 use App\Shoe\ShoeRepository;

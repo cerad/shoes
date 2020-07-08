@@ -3,4 +3,5 @@ twig:
     paths:
         'src/Shoe':      Shoe
         'src/ShoeStore': ShoeStore
+        'src/Base':      Base
 

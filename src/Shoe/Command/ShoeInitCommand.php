@@ -1,9 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace App\Command;
+namespace App\Shoe\Command;
 
-use App\Entity\Shoe;
+use App\Shoe\Shoe;
+
 use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace App\Command;
+namespace App\Shoe\Command;
 
 use App\Shoe\Shoe;
 use App\Shoe\ShoeRepository;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -145,9 +146,9 @@ final class ShoeLoadCommand extends Command
             $shoe->setName($name);
             $shoe->setColor($color);
         }
-        if ($code === 'AT9979002') {
+        //if ($code === 'AT9979002') {
             //echo "{$code} {$name} {$color}\n";
-        }
+        //}
         //echo "{$code} {$name} {$color}\n"; die();
     }
     private function filterData(array $row, int $index) : string
