@@ -5,13 +5,13 @@ namespace App\Shoe\Table;
 use App\Shoe\ShoeRepository;
 
 use Cerad\Common\Action\ActionInterface;
-use Cerad\Common\Action\RenderTrait;
+use Cerad\Common\Action\RenderTwigTrait;
 
 use Symfony\Component\HttpFoundation\Response;
 
 final class ShoeListAction implements ActionInterface
 {
-    use RenderTrait;
+    use RenderTwigTrait;
 
     public function __invoke(ShoeRepository $shoeRepository) : Response
     {

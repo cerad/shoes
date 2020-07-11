@@ -6,7 +6,7 @@ use App\ShoeStore\ShoeStoreRepository;
 
 use Cerad\Common\Action\ActionInterface;
 use Cerad\Common\Action\FormFactoryTrait;
-use Cerad\Common\Action\RenderTrait;
+use Cerad\Common\Action\RenderTwigTrait;
 use Cerad\Common\Action\RouterTrait;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ShoeStoreListAction implements ActionInterface
 {
     use FormFactoryTrait;
-    use RenderTrait;
+    use RenderTwigTrait;
     use RouterTrait;
 
     public function __invoke(Request $request, ShoeStoreRepository $shoeStoreRepository, string $storeCode) : Response

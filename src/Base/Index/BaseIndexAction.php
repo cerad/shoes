@@ -3,12 +3,12 @@
 namespace App\Base\Index;
 
 use Cerad\Common\Action\ActionInterface;
-use Cerad\Common\Action\RenderTrait;
+use Cerad\Common\Action\RenderTwigTrait;
 use Symfony\Component\HttpFoundation\Response;
 
 class BaseIndexAction implements ActionInterface
 {
-    use RenderTrait;
+    use RenderTwigTrait;
 
     public function __invoke() : Response
     {

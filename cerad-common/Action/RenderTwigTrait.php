@@ -5,7 +5,7 @@ namespace Cerad\Common\Action;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-trait RenderTrait
+trait RenderTwigTrait
 {
     private Environment $twig;
 
